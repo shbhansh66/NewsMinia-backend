@@ -82,7 +82,7 @@ function extractImage(item) {
  * MAIN FUNCTION — Fetch + Save News
  ******************************************/
 const fetchAndSaveNews = async () => {
-    console.log("🚀 Starting News Fetching Job...");
+    console.log(" Starting News Fetching Job...");
 
     // Parser with fixes for broken XML feeds
     const parser = new Parser({
@@ -96,8 +96,8 @@ const fetchAndSaveNews = async () => {
                 'enclosure',
                 'creator',
                 'category',
-                'description',        // ⭐ REQUIRED FOR IMAGES IN HINDU / TOI
-                'content:encoded',    // ⭐ REQUIRED FOR GOOGLE NEWS
+                'description',        
+                'content:encoded',    
                 'media:content',
                 'media:thumbnail',
                 'media:group'
@@ -110,7 +110,7 @@ const fetchAndSaveNews = async () => {
         try {
             feed = await parser.parseURL(url);
         } catch (err) {
-            console.error(`❌ Error parsing feed (${sourceId}):`, err.message);
+            console.error(` Error parsing feed (${sourceId}):`, err.message);
             continue; 
         }
 
@@ -142,15 +142,15 @@ const fetchAndSaveNews = async () => {
                     { upsert: true }
                 );
 
-                console.log(`💾 Saved: ${item.title.substring(0, 50)}... | Category: ${category}`);
+                console.log(`Saved: ${item.title.substring(0, 50)}... | Category: ${category}`);
             }
 
         } catch (err) {
-            console.error(`❌ Error processing items for (${sourceId}):`, err.message);
+            console.error(` Error processing items for (${sourceId}):`, err.message);
         }
     }
 
-    console.log("✅ News Fetching Job Finished.");
+    console.log(" News Fetching Job Finished.");
 };
 
 module.exports = fetchAndSaveNews;
